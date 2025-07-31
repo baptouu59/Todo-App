@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   api:
     build: .
@@ -8,3 +9,16 @@ services:
       - .:/app
     environment:
       - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/todo-db
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
